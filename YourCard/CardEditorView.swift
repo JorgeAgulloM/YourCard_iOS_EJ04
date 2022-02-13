@@ -16,59 +16,53 @@ struct CardEditorView: View {
         animation: .default)
     private var items: FetchedResults<Item>
 
-    @State var nombre: String = ""
-    @State var apellidos: String = ""
-    @State var puestoTrabajo: String = ""
-    @State var telefono: String = ""
-    @State var email: String = ""
-    @State var direccion: String = ""
-    @State var direccion2: String = ""
-    
-    /**
-     CGRect screenRect = [[UIScreen mainScreen] bounds];
-     CGFloat screenWidth = screenRect.size.width;
-     CGFloat screenHeight = screenRect.size.height;
-     */
-    
-    
+    @EnvironmentObject var userData: UserData
     
     var sizeScreenWidth = UIScreen.main.bounds.width
     var sizeScreenHeigth = UIScreen.main.bounds.height
-    @State var colorSliderRed: Float = 0.0
-    @State var colorSliderBlue: Float = 0.0
-    @State var colorSliderGreen: Float = 0.0
+    @State var arrayRGB: Array<Float> = [0.0, 0.0, 0.0]
     @State var personalColor: Bool = false
     @State var scaleCircles: Double = 0.6
-    let colorPredefined: Array<Color> = [Color.yellow, Color.red, Color.gray, Color.green, Color.blue, Color.orange]
+    let colorPredefined: Array<Color> = [Color.gray, Color.yellow, Color.red,  Color.green, Color.blue, Color.orange]
     @State var colorPresed: Int = 0
     @State var cardReversed: Bool = false
     
     var body: some View {
         ZStack {
-            Color.clear
+            Image("fondoAzul2")
+                .resizable()
+                .scaleEffect(1)
+            
             VStack {
-                Text("Personaliza el color")
-                    .padding(.top, 50)
+                Text("Selecciona un color")
                     .font(.largeTitle)
-                    .foregroundColor(Color.blue)
+                    .bold()
+                    .padding(.top, 60)
+                    .foregroundColor(Color.white)
+                
                 VStack {
-                    Text("Elige el color de tu tarjeta")
-                        .padding()
-                        .font(.title)
+//                    Text("Elige el color de tu tarjeta")
+//                        .padding()
+//                        .font(.title)
                     Toggle(isOn: $personalColor) {
                         Text("Personalizar?")
-                    }.padding(.horizontal, 80)
+                            .font(.title2)
+                    }.padding(.horizontal, 90)
+                        .tint(Color.green)
                     
                     if personalColor {
                         VStack {
-                            Slider(value: $colorSliderRed)
+                            Slider(value: $arrayRGB[0])
                                 .padding(.horizontal)
-                                .foregroundColor(Color.red)
-                            Slider(value: $colorSliderGreen)
+                                .accentColor(Color.red)
+                            Slider(value: $arrayRGB[1])
                                 .padding(.horizontal)
-                            Slider(value: $colorSliderBlue)
+                                .accentColor(Color.green)
+                            Slider(value: $arrayRGB[2])
                                 .padding(.horizontal)
+                                .accentColor(Color.blue)
                         }.padding(24)
+                        
                     } else {
                         HStack{
                             ForEach(colorPredefined, id:\.self) { colorP in
@@ -77,55 +71,25 @@ struct CardEditorView: View {
                                               colorPresed: $colorPresed)
                             }
                         }.padding(5)
+                        
                     }
-                }.frame(width: (sizeScreenWidth * 0.9), height: (sizeScreenHeigth * 0.3))
-                    .cornerRadius(25)
-                    .background(Color.white)
-                    .clipShape(RoundedRectangle(cornerRadius: 25.0, style: .continuous))
-                    .accessibilityHidden(personalColor)
-                VStack{
-                    ZStack {
-                        VStack{
-                            if !cardReversed {
-                                HStack{
-                                    Section{
-                                        Text("JA")
-                                            .font(.largeTitle)
-                                            .bold()
-                                            .frame(width: 100, height: 100)
-                                    }
-                                    .background(Color.white)
-                                    .clipShape(Circle())
-                                        
-                                    VStack{
-                                        Text("Jorge Agulló")
-                                        Text("Desarrollador iOS")
-                                    }.font(.title)
-                                        .foregroundColor(Color.black)
-                                }
-                            } else {
-                                Section{
-                                    Text("653912277")
-                                    Text("agullojorge@gmail.com")
-                                    Text("Calle de elche 17 3 3")
-                                }
-                                .font(.title)
-                                
-                            }
-                             
-                        }
-                        Image("aluminio")
-                            .opacity(0.6)
-                            
-                    }
-                }.frame(width: (sizeScreenWidth * 0.9), height: (sizeScreenHeigth * 0.3))
-                    .cornerRadius(25)
-                    .background(personalColor ? Color(#colorLiteral(red: colorSliderRed, green: colorSliderGreen, blue: colorSliderBlue, alpha: 1)) : colorPredefined[colorPresed])
-                    .clipShape(RoundedRectangle(cornerRadius: 25.0, style: .continuous))
-                    .rotation3DEffect(.degrees(cardReversed ? 0 : 360), axis: (x: 0, y: 1, z: 0))
-                    .onTapGesture {
-                        self.cardReversed.toggle()
-                    }.animation(.easeInOut, value: self.cardReversed)
+                }
+                .foregroundColor(Color.white)
+                .frame(width: (CGFloat(sizeScreenWidth) * 0.9), height: (CGFloat(sizeScreenHeigth) * 0.22))
+                .cornerRadius(25)
+                .clipShape(RoundedRectangle(cornerRadius: 25.0, style: .continuous))
+                .accessibilityHidden(personalColor)
+                
+                
+                CardView(sizeScreenWidth: Float(sizeScreenWidth),
+                         widthMultiplier: 0.9,
+                         sizeScreenHeigth: Float(sizeScreenHeigth),
+                         heigthMultiplier: 0.3,
+                         colorPredefined: colorPredefined[colorPresed],
+                         arrayRGB: arrayRGB,
+                         personalColor: personalColor,
+                         cardReversed: $cardReversed)
+                
                 Spacer()
             }
         }.edgesIgnoringSafeArea(.all)
@@ -139,15 +103,99 @@ struct ColorSelector : View {
     
     var body: some View {
         Capsule()
-            .scale(0.6)
-            .foregroundColor(colorCircle)
-            .shadow(color: .black, radius: colorPresed == id ? 2 : 10)
-            .onTapGesture {
-                colorPresed = id
-            }
+        .scale(0.6)
+        .foregroundColor(colorCircle)
+        .shadow(color: .white, radius: colorPresed == id ? 2 : 10)
+        .onTapGesture {
+            colorPresed = id
+        }
+//        ZStack{
+//
+//            Image("aluminio")
+//                .opacity(0.6)
+//
+//        }
+//        .frame(width: 40, height: 90)
+//        .cornerRadius(25)
+//        .background(colorCircle)
+//        .clipShape(Capsule())
+//        .shadow(color: .black, radius: 2, x: 1, y: 1)
+//        .onTapGesture {
+//            colorPresed = id
+//        }
+         
     }
     
 }
+
+
+
+struct CardView : View {
+    //Variable de datos de entorno
+    @EnvironmentObject var userData: UserData
+    let sizeScreenWidth: Float
+    let widthMultiplier: Float
+    let sizeScreenHeigth: Float
+    let heigthMultiplier: Float
+    var colorPredefined: Color
+    var arrayRGB: Array<Float> = [0.0, 0.0, 0.0]
+    var personalColor: Bool
+    @Binding var cardReversed: Bool
+
+    var body: some View {
+        
+        VStack{
+            ZStack {
+                VStack{
+                    if !cardReversed {
+                        HStack{
+                            Section{
+                                Text("JA")
+                                    .font(.largeTitle)
+                                    .bold()
+                                    .frame(width: 100, height: 100)
+                            }
+                            .background(Color.white)
+                            .clipShape(Circle())
+                                
+                            VStack{
+                                Text("\(userData.nombre) \(userData.apellidos)")
+                                Text("\(userData.puestoTrabajo)")
+                            }
+                            .font(.title)
+                            .foregroundColor(Color.black)
+                        }
+                        
+                    } else {
+                        Section{
+                            Text("\(userData.telefono)")
+                            Text("\(userData.email)")
+                            Text("\(userData.direccion)")
+                            if !userData.direccion2.elementsEqual("") {
+                                Text("\(userData.direccion2)")
+                            }
+                        }.font(.title)
+                    }
+                }
+                
+                Image("aluminio")
+                    .opacity(0.6)
+                    
+            }
+        }
+        .frame(width: (CGFloat(sizeScreenWidth) * CGFloat(widthMultiplier)),
+               height: (CGFloat(sizeScreenHeigth) * CGFloat(heigthMultiplier)))
+        .cornerRadius(25)
+        .background(personalColor ? Color(#colorLiteral(red: arrayRGB[0], green: arrayRGB[1], blue: arrayRGB[2], alpha: 1)) : colorPredefined)
+        .clipShape(RoundedRectangle(cornerRadius: 25.0, style: .continuous))
+        .rotation3DEffect(.degrees(cardReversed ? 0 : 360), axis: (x: 0, y: 1, z: 0))
+        .shadow(color: .white, radius: 1, x: 3, y: 3)
+        .onTapGesture {
+            self.cardReversed.toggle()
+        }.animation(.easeInOut, value: self.cardReversed)
+    }
+}
+
 
 struct CardEditorView_Previws: PreviewProvider {
     static var previews: some View {
