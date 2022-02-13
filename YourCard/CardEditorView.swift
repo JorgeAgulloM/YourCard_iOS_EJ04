@@ -29,7 +29,7 @@ struct CardEditorView: View {
     
     var body: some View {
         ZStack {
-            Image("fondoAzul2")
+            Image("fondoAzul6")
                 .resizable()
                 .scaleEffect(1)
             
@@ -45,22 +45,31 @@ struct CardEditorView: View {
 //                        .padding()
 //                        .font(.title)
                     Toggle(isOn: $personalColor) {
-                        Text("Personalizar?")
-                            .font(.title2)
-                    }.padding(.horizontal, 90)
+                        Text("Color personalizado")
+                            .font(.caption)
+                    }.padding(.horizontal, 80)
                         .tint(Color.green)
                     
                     if personalColor {
                         VStack {
-                            Slider(value: $arrayRGB[0])
-                                .padding(.horizontal)
-                                .accentColor(Color.red)
-                            Slider(value: $arrayRGB[1])
-                                .padding(.horizontal)
-                                .accentColor(Color.green)
-                            Slider(value: $arrayRGB[2])
-                                .padding(.horizontal)
-                                .accentColor(Color.blue)
+                            HStack {
+                                Text("R")
+                                Slider(value: $arrayRGB[0])
+                                    .padding(.horizontal)
+                                    .accentColor(Color.red)
+                            }
+                            HStack {
+                                Text("G")
+                                Slider(value: $arrayRGB[1])
+                                    .padding(.horizontal)
+                                    .accentColor(Color.green)
+                            }
+                            HStack {
+                                Text("B")
+                                Slider(value: $arrayRGB[2])
+                                    .padding(.horizontal)
+                                    .accentColor(Color.blue)
+                            }
                         }.padding(24)
                         
                     } else {
@@ -75,7 +84,7 @@ struct CardEditorView: View {
                     }
                 }
                 .foregroundColor(Color.white)
-                .frame(width: (CGFloat(sizeScreenWidth) * 0.9), height: (CGFloat(sizeScreenHeigth) * 0.22))
+                .frame(width: (CGFloat(sizeScreenWidth) * 0.9), height: (CGFloat(sizeScreenHeigth) * 0.23))
                 .cornerRadius(25)
                 .clipShape(RoundedRectangle(cornerRadius: 25.0, style: .continuous))
                 .accessibilityHidden(personalColor)
@@ -150,7 +159,7 @@ struct CardView : View {
                     if !cardReversed {
                         HStack{
                             Section{
-                                Text("JA")
+                                Text("\(String(userData.nombre.prefix(1))) \(String(userData.apellidos.prefix(1)))")
                                     .font(.largeTitle)
                                     .bold()
                                     .frame(width: 100, height: 100)
@@ -175,6 +184,7 @@ struct CardView : View {
                                 Text("\(userData.direccion2)")
                             }
                         }.font(.title)
+                        .rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
                     }
                 }
                 
@@ -188,7 +198,7 @@ struct CardView : View {
         .cornerRadius(25)
         .background(personalColor ? Color(#colorLiteral(red: arrayRGB[0], green: arrayRGB[1], blue: arrayRGB[2], alpha: 1)) : colorPredefined)
         .clipShape(RoundedRectangle(cornerRadius: 25.0, style: .continuous))
-        .rotation3DEffect(.degrees(cardReversed ? 0 : 360), axis: (x: 0, y: 1, z: 0))
+        .rotation3DEffect(.degrees(cardReversed ? 180 : 0), axis: (x: 0, y: 1, z: 0))
         .shadow(color: .white, radius: 1, x: 3, y: 3)
         .onTapGesture {
             self.cardReversed.toggle()
@@ -201,5 +211,6 @@ struct CardEditorView_Previws: PreviewProvider {
     static var previews: some View {
         CardEditorView()
             .previewInterfaceOrientation(.portrait)
+            .environmentObject(UserData())
     }
 }

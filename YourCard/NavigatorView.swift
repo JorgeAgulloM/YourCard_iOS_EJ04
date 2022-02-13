@@ -34,6 +34,8 @@ struct NavigatorView: View {
 
 struct NavigatorView_Previws: PreviewProvider {
     static var previews: some View {
-        NavigatorView().previewInterfaceOrientation(.portrait)
+        NavigatorView()
+            .previewInterfaceOrientation(.portrait)
+            .environmentObject(UserData())
     }
 }

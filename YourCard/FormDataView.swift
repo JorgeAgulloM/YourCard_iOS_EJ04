@@ -72,6 +72,9 @@ struct FormDataView: View {
 
 struct FormDataView_Previws: PreviewProvider {
     static var previews: some View {
-        FormDataView().previewInterfaceOrientation(.portrait)
+        
+        FormDataView()
+            .previewInterfaceOrientation(.portrait)
+            .environmentObject(UserData())
     }
 }
