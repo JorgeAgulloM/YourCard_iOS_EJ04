@@ -35,11 +35,7 @@ struct CardEditorView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .center) {
-                CardView(sizeScreenWidth: Float(sizeScreenWidth),
-                         widthMultiplier: 0.9,
-                         sizeScreenHeigth: Float(sizeScreenHeigth),
-                         heigthMultiplier: 0.3,
-                         finalColor: finalColor,
+                CardView(finalColor: finalColor,
                          foreColorSelect: foreColorSelect,
                          logoColorSelect: logoColorSelect,
                          aluminio: aluminio,

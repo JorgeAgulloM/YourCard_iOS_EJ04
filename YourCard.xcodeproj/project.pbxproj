@@ -19,6 +19,7 @@
 		11211C6F27B6FDC000AD7831 /* FormDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11211C6D27B6FDC000AD7831 /* FormDataView.swift */; };
 		118C6E4327BA533E00C72031 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118C6E4227BA533E00C72031 /* CardView.swift */; };
 		118C6E4527BA54F300C72031 /* ColorSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118C6E4427BA54F300C72031 /* ColorSelector.swift */; };
+		118C6E4A27BA90D400C72031 /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 118C6E4927BA90D300C72031 /* SplashScreen.swift */; };
 		11D606B227B9202A00D6F2F0 /* NavigatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D606B127B9202A00D6F2F0 /* NavigatorView.swift */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +56,7 @@
 		11211C6D27B6FDC000AD7831 /* FormDataView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormDataView.swift; sourceTree = "<group>"; };
 		118C6E4227BA533E00C72031 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		118C6E4427BA54F300C72031 /* ColorSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSelector.swift; sourceTree = "<group>"; };
+		118C6E4927BA90D300C72031 /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
 		11D606B127B9202A00D6F2F0 /* NavigatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigatorView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -107,10 +109,11 @@
 			isa = PBXGroup;
 			children = (
 				118C6E4127BA52CF00C72031 /* CardPatterns */,
-				11D606B127B9202A00D6F2F0 /* NavigatorView.swift */,
-				11211C6C27B6FDC000AD7831 /* CardEditorView.swift */,
-				11211C6D27B6FDC000AD7831 /* FormDataView.swift */,
 				11211C3D27B6FD5400AD7831 /* YourCardApp.swift */,
+				118C6E4927BA90D300C72031 /* SplashScreen.swift */,
+				11D606B127B9202A00D6F2F0 /* NavigatorView.swift */,
+				11211C6D27B6FDC000AD7831 /* FormDataView.swift */,
+				11211C6C27B6FDC000AD7831 /* CardEditorView.swift */,
 				11211C4127B6FD5900AD7831 /* Assets.xcassets */,
 				11211C4627B6FD5900AD7831 /* Persistence.swift */,
 				11211C4827B6FD5900AD7831 /* YourCard.xcdatamodeld */,
@@ -283,6 +286,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				118C6E4A27BA90D400C72031 /* SplashScreen.swift in Sources */,
 				118C6E4327BA533E00C72031 /* CardView.swift in Sources */,
 				11211C4727B6FD5900AD7831 /* Persistence.swift in Sources */,
 				11211C4A27B6FD5900AD7831 /* YourCard.xcdatamodeld in Sources */,

@@ -18,10 +18,6 @@ struct CardView: View {
     
     //Variable de datos de entorno
     @EnvironmentObject var userData: UserData
-    let sizeScreenWidth: Float
-    let widthMultiplier: Float
-    let sizeScreenHeigth: Float
-    let heigthMultiplier: Float
     var finalColor: Color = Color.blue
     var foreColorSelect: Color = Color.black
     var logoColorSelect: Color = Color.white

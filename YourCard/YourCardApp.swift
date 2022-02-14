@@ -16,7 +16,7 @@ struct YourCardApp: App {
     
     var body: some Scene {
         WindowGroup {
-            NavigatorView()
+            SplashScreen()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .environmentObject(userData) //Se añade la variable como objeto de entorno
         }

@@ -32,64 +32,86 @@ struct FormDataView: View {
     @EnvironmentObject var userData: UserData
     
     var body: some View {
-        VStack {
-            
-            ZStack {
-                Image("aluminio")
-                    .resizable()
-                    .frame(width: .infinity, height: 250)
-                Image("cardWhite")
-                    .resizable()
-                    .frame(width: 300, height: 220)
-                    .padding(.top, 30)
-            }
-                
-            Text("Crea tu tarjeta de visita")
-                .font(.largeTitle)
-                .bold()
-                .foregroundColor(Color.blue)
-            
-                
-            Form {
-                Text("Datos personales")
-                    .font(.title2)
-                    .italic()
-                    .foregroundColor(Color.blue)
-                
-                TextField("Nombre", text: $userData.nombre)
-                    .autocapitalization(.words)
-                TextField("Apellido", text: $userData.apellidos)
-                    .autocapitalization(.words)
-                TextField("Puesto de trabajo", text: $userData.puestoTrabajo)
-                    .autocapitalization(.words)
-                Section{
-                    Text("Datos de contacto")
-                        .font(.title2)
-                        .italic()
-                        .foregroundColor(Color.blue)
-                    TextField("Teléfono", text: $userData.telefono)
-                        .keyboardType(.numberPad)
-                    TextField("e-Mail", text: $userData.email)
-                        .keyboardType(.emailAddress)
-                    TextField("Dirección", text: $userData.direccion)
-                        .autocapitalization(.words)
-                    TextField("Dirección2", text: $userData.direccion2)
-                        .autocapitalization(.words)
-                }
-            }.padding(0)
-             .onAppear {
-                UITableView.appearance().backgroundColor = .clear
-             }
-            
-            
-        }.edgesIgnoringSafeArea(.all)
+        if UIDevice.current.orientation.isLandscape {
+             HStack {
+                 presentationView()
+                 FormView()
+             }.edgesIgnoringSafeArea(.all)
+             
+         } else {
+             VStack {
+                 
+                 presentationView()
+                 FormView()
+             }.edgesIgnoringSafeArea(.all)
+             
+         }
+        
     }
 }
 
-class EntryFields {
-    var symbol: String = ""
-    var data: String = ""
+struct presentationView: View {
+    let sizeScreenWidth = UIScreen.main.bounds.width
+    //var sizeScreenHeigth = UIScreen.main.bounds.height
+    var body: some View {
+        VStack {
+        ZStack {
+            Image("aluminio")
+                .resizable()
+                .frame(width: sizeScreenWidth, height: 300)
+            VStack {
+            Image("cardWhite")
+                .resizable()
+                .frame(width: 300, height: 220)
+                .padding(.top, 20)
+                Text("Crea tu tarjeta de visita")
+                    .font(.largeTitle)
+                    .italic()
+                    .foregroundColor(Color.blue)
+                    .padding(.top, -20)
+                }
+            }
+        }
+    }
+}
+
+struct FormView: View {
     
+    //Variable de datos de entorno
+    @EnvironmentObject var userData: UserData
+    
+    var body: some View {
+        Form {
+            Text("Datos personales")
+                .font(.title2)
+                .italic()
+                .foregroundColor(Color.blue)
+            
+            TextField("\(Image(systemName: "person.crop.circle")) Nombre", text: $userData.nombre)
+                .autocapitalization(.words)
+            TextField("\(Image(systemName: "person.crop.circle")) Apellido", text: $userData.apellidos)
+                .autocapitalization(.words)
+            TextField("\(Image(systemName: "briefcase")) Puesto de trabajo", text: $userData.puestoTrabajo)
+                .autocapitalization(.words)
+            Section{
+                Text("Datos de contacto")
+                    .font(.title2)
+                    .italic()
+                    .foregroundColor(Color.blue)
+                TextField("\(Image(systemName: "phone.circle")) Teléfono", text: $userData.telefono)
+                    .keyboardType(.numberPad)
+                TextField("\(Image(systemName: "envelope.circle")) e-Mail", text: $userData.email)
+                    .keyboardType(.emailAddress)
+                TextField("\(Image(systemName: "house")) Dirección", text: $userData.direccion)
+                    .autocapitalization(.words)
+                TextField("\(Image(systemName: "house")) Dirección2", text: $userData.direccion2)
+                    .autocapitalization(.words)
+            }
+        }.padding(.top, -30)
+         .onAppear {
+            UITableView.appearance().backgroundColor = .clear
+        }
+    }
 }
 
 
