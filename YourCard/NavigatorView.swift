@@ -28,6 +28,9 @@ struct NavigatorView: View {
                     Image(systemName: "creditcard")
                     Text("Tarjeta")
                 }
+        }.onAppear() {
+            UITabBar.appearance().unselectedItemTintColor = .gray
+            UITabBar.appearance().backgroundColor = .white
         }
     }
 }

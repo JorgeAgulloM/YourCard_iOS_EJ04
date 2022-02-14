@@ -32,42 +32,65 @@ struct FormDataView: View {
     @EnvironmentObject var userData: UserData
     
     var body: some View {
-            VStack {
-                Image(systemName: "creditcard")
+        VStack {
+            
+            ZStack {
+                Image("aluminio")
                     .resizable()
-                    .frame(width: 120, height: 90)
-                    .foregroundColor(Color.blue)
-                Text("Crea tu tarjeta de visita")
-                    .font(.largeTitle)
-                    .bold()
+                    .frame(width: .infinity, height: 250)
+                Image("cardWhite")
+                    .resizable()
+                    .frame(width: 300, height: 220)
+                    .padding(.top, 30)
+            }
+                
+            Text("Crea tu tarjeta de visita")
+                .font(.largeTitle)
+                .bold()
+                .foregroundColor(Color.blue)
+            
+                
+            Form {
+                Text("Datos personales")
+                    .font(.title2)
                     .italic()
                     .foregroundColor(Color.blue)
-                Form {
-                    Text("Introduce tus datos")
-                        .font(.title)
+                
+                TextField("Nombre", text: $userData.nombre)
+                    .autocapitalization(.words)
+                TextField("Apellido", text: $userData.apellidos)
+                    .autocapitalization(.words)
+                TextField("Puesto de trabajo", text: $userData.puestoTrabajo)
+                    .autocapitalization(.words)
+                Section{
+                    Text("Datos de contacto")
+                        .font(.title2)
                         .italic()
                         .foregroundColor(Color.blue)
-                    TextField("Nombre", text: $userData.nombre)
+                    TextField("Teléfono", text: $userData.telefono)
+                        .keyboardType(.numberPad)
+                    TextField("e-Mail", text: $userData.email)
+                        .keyboardType(.emailAddress)
+                    TextField("Dirección", text: $userData.direccion)
                         .autocapitalization(.words)
-                    TextField("Apellido", text: $userData.apellidos)
+                    TextField("Dirección2", text: $userData.direccion2)
                         .autocapitalization(.words)
-                    TextField("Puesto de trabajo", text: $userData.puestoTrabajo)
-                        .autocapitalization(.words)
-                    Section{
-                        TextField("Teléfono", text: $userData.telefono)
-                            .keyboardType(.numberPad)
-                        TextField("e-Mail", text: $userData.email)
-                            .keyboardType(.emailAddress)
-                        TextField("Dirección", text: $userData.direccion)
-                            .autocapitalization(.words)
-                        TextField("Dirección2", text: $userData.direccion2)
-                            .autocapitalization(.words)
-                    }
                 }
-                
-            }.background(Color.yellow)
-        }
+            }.padding(0)
+             .onAppear {
+                UITableView.appearance().backgroundColor = .clear
+             }
+            
+            
+        }.edgesIgnoringSafeArea(.all)
     }
+}
+
+class EntryFields {
+    var symbol: String = ""
+    var data: String = ""
+    
+}
 
 
 struct FormDataView_Previws: PreviewProvider {
