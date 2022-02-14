@@ -16,6 +16,9 @@ struct NavigatorView: View {
         animation: .default)
     private var items: FetchedResults<Item>
     
+    //Variable de datos de entorno
+    @EnvironmentObject var userData: UserData
+    
     var body: some View {
         TabView{
             FormDataView()
@@ -23,11 +26,16 @@ struct NavigatorView: View {
                     Image(systemName: "pencil.and.ellipsis.rectangle")
                     Text("Datos")
                 }
-            CardEditorView()
-                .tabItem {
-                    Image(systemName: "creditcard")
-                    Text("Tarjeta")
-                }
+            if  !userData.nombre.isEmpty && !userData.apellidos.isEmpty &&
+                !userData.puestoTrabajo.isEmpty && !userData.telefono.isEmpty &&
+                !userData.email.isEmpty {
+                CardEditorView()
+                    .tabItem {
+                        Image(systemName: "creditcard")
+                        Text("Tarjeta")
+                    }
+            }
+            
         }.onAppear() {
             UITabBar.appearance().unselectedItemTintColor = .gray
             UITabBar.appearance().backgroundColor = .white

@@ -30,7 +30,10 @@ struct CardEditorView: View {
     @State var cardReversed: Bool = false
     @State var aluminio: Bool = true
     
-    
+    @State var sendCard: Bool = false
+    @State var sendByEmail: Bool = false
+    @State var SendToPrint: Bool = false
+
     
     var body: some View {
         ScrollView {
@@ -41,13 +44,10 @@ struct CardEditorView: View {
                          aluminio: aluminio,
                          cardReversed: $cardReversed)
                     
-                
-                
                 Text("Selecciona tu color")
                     .font(.title2)
                     .padding(10)
                     .foregroundColor(Color.black)
-                
                 
                 HStack(alignment: .center, spacing: 40){
                     ForEach(0..<5, id:\.self) { id in
@@ -72,26 +72,53 @@ struct CardEditorView: View {
                 Text("Puedes personalizarla a tu gusto")
                     .padding()
                     .font(.title3)
+                
                 ColorPicker("Elige tu propio color de fondo", selection: $finalColor)
                     .padding()
                     .frame(width: 300, height: 30, alignment: .center)
                     .foregroundColor(Color.black)
+                
                 ColorPicker("Elige el color del logo", selection: $logoColorSelect)
                     .padding()
                     .frame(width: 300, height: 30, alignment: .center)
                     .foregroundColor(Color.black)
+                
                 Text("Puedes elegir el color de la letra")
                     .padding()
                     .font(.title3)
+                
                 ColorPicker("Elige el color de la letra", selection: $foreColorSelect)
                     .padding()
                     .frame(width: 300, height: 30, alignment: .center)
                     .foregroundColor(Color.black)
-                
-                
-                
-                //Spacer()
-            }.frame(width: .infinity, height: .infinity, alignment: .center)
+            
+                Button("Enviar tarjeta") {
+                    self.sendCard = true
+                }.padding(.top, 30)
+                    .actionSheet(isPresented: $sendCard) {
+                    ActionSheet(title: Text("Opciones de envío"),
+                                message: Text("¿Como quieres enviar la tarjeta?"),
+                                buttons: [
+                                    .default(Text("Por email"), action: {
+                                        self.sendByEmail = true
+                                    }),
+                                    .default(Text("Imprimirla"), action: {
+                                        self.SendToPrint = true
+                                    }),
+                                    .destructive(Text("Cancelar"))
+                                ])
+                    }.alert(isPresented: $sendByEmail) {
+                        Alert(title: Text("Enviando por email")
+                                .font(.title3),
+                              message: Text("La tarjeta será enviada al email proporcionado \(userData.email)")
+                                .font(.title2))
+                    }.alert(isPresented: $SendToPrint) {
+                        Alert(title: Text("Enviando a la impresora")
+                                .font(.title3),
+                              message: Text("Estamos trabajando en ello")
+                                .font(.title2))
+                    }
+            }
         }
     }
 }

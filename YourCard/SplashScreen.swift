@@ -25,10 +25,7 @@ struct SplashScreen: View {
                     self.isActive = true
                 }
             }
-        }.transition(.asymmetric(insertion:
-                                    AnyTransition.scale.combined(with: AnyTransition.opacity.combined(with:
-                                                                 .slide)),
-                                removal: AnyTransition.scale.combined(with: AnyTransition.opacity.combined(with:                                                            .slide))))
+        }
     }
 }
 

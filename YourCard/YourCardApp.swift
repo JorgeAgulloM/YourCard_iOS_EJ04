@@ -14,6 +14,7 @@ struct YourCardApp: App {
     //Variable instanciada de la clase Userdata para compartir datos en el entorno de la app.
     var userData = UserData()
     
+    
     var body: some Scene {
         WindowGroup {
             SplashScreen()

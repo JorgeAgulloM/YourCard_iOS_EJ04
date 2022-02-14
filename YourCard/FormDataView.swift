@@ -20,6 +20,7 @@ class UserData: ObservableObject {
     @Published var dataComplete: Bool = false
 }
 
+
 struct FormDataView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
@@ -40,15 +41,51 @@ struct FormDataView: View {
              
          } else {
              VStack {
-                 
                  presentationView()
                  FormView()
              }.edgesIgnoringSafeArea(.all)
-             
          }
-        
     }
 }
+
+//class TextValidator: ObservableObject {
+//
+//    @Published var text = ""
+//
+//}
+
+//struct validateFields: View {
+//
+//    @State var isEmailValid: Bool = false
+//    @State var email: String ""
+//    @ObservedObject var textValidator = TextValidator()
+//       var body: some View {
+//           TextField("Email", text: $email, onEditingChanged: { (isChanged) in
+//                            if !isChanged {
+//                                 if self.textFieldValidatorEmail(self.email) {
+//                                   self.isEmailValid = true
+//                                 } else {
+//                                   self.isEmailValid = false
+//                                   self.email = ""
+//                                 }
+//                           }
+//           })
+//           .autocapitalization(.none)
+//
+//           if !self.isEmailValid {
+//                 Text("Email is not valid")
+//           }
+//
+//           func textFieldValidatorEmail(_ string: String) -> Bool {
+//                   if string.count > 100 {
+//                       return false
+//                   }
+//                   let emailFormat = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}" // short format
+//                   let emailPredicate = NSPredicate(format:"SELF MATCHES %@", emailFormat)
+//                   return emailPredicate.evaluate(with: string)
+//           }
+//       }
+//}
 
 struct presentationView: View {
     let sizeScreenWidth = UIScreen.main.bounds.width
