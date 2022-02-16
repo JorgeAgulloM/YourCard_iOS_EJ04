@@ -31,8 +31,7 @@ struct CardEditorView: View {
     @State var aluminio: Bool = true
     
     @State var sendCard: Bool = false
-    @State var sendByEmail: Bool = false
-    @State var SendToPrint: Bool = false
+    @State var sendBy: Bool = false
 
     
     var body: some View {
@@ -63,34 +62,10 @@ struct CardEditorView: View {
                 .frame(width: 300, height: 100, alignment: .leading)
                 .accessibilityHidden(personalColor)
                 
-                Toggle(isOn: $aluminio) {
-                    Text("¿Plástico o Aluminio?")
-                    }.padding()
-                    .frame(width: 300, height: 30, alignment: .center)
-                    .foregroundColor(Color.black)
-                
-                Text("Puedes personalizarla a tu gusto")
-                    .padding()
-                    .font(.title3)
-                
-                ColorPicker("Elige tu propio color de fondo", selection: $finalColor)
-                    .padding()
-                    .frame(width: 300, height: 30, alignment: .center)
-                    .foregroundColor(Color.black)
-                
-                ColorPicker("Elige el color del logo", selection: $logoColorSelect)
-                    .padding()
-                    .frame(width: 300, height: 30, alignment: .center)
-                    .foregroundColor(Color.black)
-                
-                Text("Puedes elegir el color de la letra")
-                    .padding()
-                    .font(.title3)
-                
-                ColorPicker("Elige el color de la letra", selection: $foreColorSelect)
-                    .padding()
-                    .frame(width: 300, height: 30, alignment: .center)
-                    .foregroundColor(Color.black)
+                UserOptions(aluminio: $aluminio,
+                            finalColor: $finalColor,
+                            logoColorSelect: $logoColorSelect,
+                            foreColorSelect: $foreColorSelect)
             
                 Button("Enviar tarjeta") {
                     self.sendCard = true
@@ -100,26 +75,55 @@ struct CardEditorView: View {
                                 message: Text("¿Como quieres enviar la tarjeta?"),
                                 buttons: [
                                     .default(Text("Por email"), action: {
-                                        self.sendByEmail = true
+                                        self.sendBy = true
                                     }),
                                     .default(Text("Imprimirla"), action: {
-                                        self.SendToPrint = true
+                                        self.sendBy = true
                                     }),
                                     .destructive(Text("Cancelar"))
                                 ])
-                    }.alert(isPresented: $sendByEmail) {
-                        Alert(title: Text("Enviando por email")
+                    }.alert(isPresented: $sendBy) {
+                        Alert(title: Text("Enviar...")
                                 .font(.title3),
-                              message: Text("La tarjeta será enviada al email proporcionado \(userData.email)")
-                                .font(.title2))
-                    }.alert(isPresented: $SendToPrint) {
-                        Alert(title: Text("Enviando a la impresora")
-                                .font(.title3),
-                              message: Text("Estamos trabajando en ello")
+                              message: Text("Te pedimos disculpas, estamos trabajando en esta funcionalidad. Podrás disfrutarás de ella próximamente.")
                                 .font(.title2))
                     }
             }
         }
+    }
+}
+
+struct UserOptions: View {
+    @Binding var aluminio: Bool
+    @Binding var finalColor: Color
+    @Binding var logoColorSelect: Color
+    @Binding var foreColorSelect: Color
+    
+    var body: some View {
+        Toggle(isOn: $aluminio) {
+            Text("¿Plástico o Aluminio?")
+            }.padding()
+            .frame(width: 300, height: 30, alignment: .center)
+            .foregroundColor(Color.black)
+        
+        Text("Puedes personalizarla a tu gusto")
+            .padding()
+            .font(.title3)
+        
+        ColorPicker("Elige tu propio color de fondo", selection: $finalColor)
+            .padding()
+            .frame(width: 300, height: 30, alignment: .center)
+            .foregroundColor(Color.black)
+        
+        ColorPicker("Elige el color para el logo", selection: $logoColorSelect)
+            .padding()
+            .frame(width: 300, height: 30, alignment: .center)
+            .foregroundColor(Color.black)
+        
+        ColorPicker("Elige el color del texto", selection: $foreColorSelect)
+            .padding()
+            .frame(width: 300, height: 30, alignment: .center)
+            .foregroundColor(Color.black)
     }
 }
 

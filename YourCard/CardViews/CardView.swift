@@ -30,7 +30,7 @@ struct CardView: View {
                 if !cardReversed {
                     HStack{
                         Section{
-                            Text("\(String(userData.nombre == "" ? "J" : userData.nombre.prefix(1))) \(String(userData.apellidos == "" ? "A" : userData.apellidos.prefix(1)))")
+                            Text("\(String(userData.nombre == "" ? "?" : userData.nombre.prefix(1)))")
                                 .font(.largeTitle)
                                 .bold()
                                 .frame(width: 80, height: 80, alignment: .center)
@@ -39,19 +39,19 @@ struct CardView: View {
                         .clipShape(Circle())
                             
                         VStack{
-                            Text("\(userData.nombre == "" ? "Jorge" : userData.nombre) \(userData.apellidos == "" ? "Agulló" : userData.apellidos)")
-                            Text("\(userData.puestoTrabajo == "" ? "Desarrollador iOS" : userData.puestoTrabajo)")
+                            Text("\(userData.nombre == "" ? "Nombre" : userData.nombre) \(userData.apellidos == "" ? "Apellido" : userData.apellidos)")
+                            Text("\(userData.puestoTrabajo == "" ? "Puesto de trabajo" : userData.puestoTrabajo)")
                         }
                         
                     }
                     
                 } else {
                     Section{
-                        Text("\(userData.telefono == "" ? "666555777" : userData.telefono)")
-                        Text("\(userData.email == "" ? "agullojorge@gmail.com" : userData.email)")
-                        Text("\(userData.direccion == "" ? "Calle de Elche 17 3" : userData.direccion)")
+                        Text("\(Image(systemName: "phone.circle")) \(userData.telefono == "" ? "000000000" : userData.telefono)")
+                        Text("\(Image(systemName: "envelope.circle")) \(userData.email == "" ? "email@dominio.com" : userData.email)")
+                        Text("\(Image(systemName: "house")) \(userData.direccion == "" ? "Dirección" : userData.direccion)")
                         if !userData.direccion2.elementsEqual("") {
-                            Text("\(userData.direccion2)")
+                            Text("\(Image(systemName: "house")) \(userData.direccion2)")
                         }
                     }
                     .rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))

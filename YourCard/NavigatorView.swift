@@ -26,15 +26,16 @@ struct NavigatorView: View {
                     Image(systemName: "pencil.and.ellipsis.rectangle")
                     Text("Datos")
                 }
-            if  !userData.nombre.isEmpty && !userData.apellidos.isEmpty &&
-                !userData.puestoTrabajo.isEmpty && !userData.telefono.isEmpty &&
-                !userData.email.isEmpty {
-                CardEditorView()
-                    .tabItem {
-                        Image(systemName: "creditcard")
-                        Text("Tarjeta")
-                    }
-            }
+            CardEditorView()
+                .tabItem {
+                    Image(systemName: "creditcard")
+                    Text("Tarjeta")
+                }
+//            if  !userData.nombre.isEmpty && !userData.apellidos.isEmpty &&
+//                !userData.puestoTrabajo.isEmpty && !userData.telefono.isEmpty &&
+//                !userData.email.isEmpty {
+//
+//            }
             
         }.onAppear() {
             UITabBar.appearance().unselectedItemTintColor = .gray

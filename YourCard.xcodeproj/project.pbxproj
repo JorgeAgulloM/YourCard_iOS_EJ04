@@ -108,7 +108,7 @@
 		11211C3C27B6FD5400AD7831 /* YourCard */ = {
 			isa = PBXGroup;
 			children = (
-				118C6E4127BA52CF00C72031 /* CardPatterns */,
+				118C6E4127BA52CF00C72031 /* CardViews */,
 				11211C3D27B6FD5400AD7831 /* YourCardApp.swift */,
 				118C6E4927BA90D300C72031 /* SplashScreen.swift */,
 				11D606B127B9202A00D6F2F0 /* NavigatorView.swift */,
@@ -147,13 +147,13 @@
 			path = YourCardUITests;
 			sourceTree = "<group>";
 		};
-		118C6E4127BA52CF00C72031 /* CardPatterns */ = {
+		118C6E4127BA52CF00C72031 /* CardViews */ = {
 			isa = PBXGroup;
 			children = (
 				118C6E4227BA533E00C72031 /* CardView.swift */,
 				118C6E4427BA54F300C72031 /* ColorSelector.swift */,
 			);
-			path = CardPatterns;
+			path = CardViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
