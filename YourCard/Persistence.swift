@@ -5,6 +5,8 @@
 //  Created by Jorge Agullo Martin on 11/2/22.
 //
 
+
+//  Esta clase se ha creado automáticamente.
 import CoreData
 
 struct PersistenceController {

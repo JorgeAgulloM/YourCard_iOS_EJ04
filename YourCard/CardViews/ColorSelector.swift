@@ -9,17 +9,22 @@ import SwiftUI
 import CoreData
 
 struct ColorSelector : View {
+    
+    //  Propiedades del objeto
     var id: Int = 3
     var sizeScreenWidth = UIScreen.main.bounds.width
     var sizeScreenHeigth = UIScreen.main.bounds.height
     @Binding var finalColor: Color
     @Binding var colorPresed: Int
     @State private var touch: Bool = false
+    @Binding var cardSelect: Bool
     
+    //  Array de colores predefinidos
     let colorPredefined: Array<Color> = [Color.gray, Color.red, Color.blue,  Color.green, Color.yellow]
     
     var body: some View {
         GeometryReader{ proxy in
+            //  Montaje de las tarjetas de selección de color
             ZStack {
                 Image("aluminio")
                     .resizable()
@@ -33,7 +38,7 @@ struct ColorSelector : View {
                     Section{
                         Text("J A")
                             .bold()
-                            .frame(width: 20, height: 20)
+                            .frame(width: colorPresed == id ? 30 : 18, height: colorPresed == id ? 30 : 18, alignment: .center)
                         
                     }
                     .background(Color.white)
@@ -42,20 +47,21 @@ struct ColorSelector : View {
                         
                     VStack{
                         Text("Jorge Agulló)")
-                        Text("Desarrollador iOS")
+                        Text("Estudiante iOS")
                     }
                    
                 }
-                .font(.custom("cambria", size: 5))
+                .font(.custom("cambria", size: colorPresed == id ? 6 : 5))
                 .foregroundColor(Color.black)
                 
             }
             .padding(.horizontal, -20)
-            .rotation3DEffect(.degrees(30), axis: (x: 0, y: 1, z: 0))
+            .rotation3DEffect(.degrees(30), axis: (x: 0, y: 1, z: -1))
             .onTapGesture {
                 colorPresed = id
                 finalColor = colorPredefined[id]
-            }
+                cardSelect.toggle()
+            }.animation(.interpolatingSpring(stiffness: 50, damping: 6), value: self.cardSelect)
         }
     }
 }

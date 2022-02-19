@@ -16,7 +16,7 @@ struct NavigatorView: View {
         animation: .default)
     private var items: FetchedResults<Item>
     
-    //Variable de datos de entorno
+    //Variable de datos de entorno, solo para podre previsualizar la app.
     @EnvironmentObject var userData: UserData
     
     var body: some View {
@@ -25,21 +25,20 @@ struct NavigatorView: View {
                 .tabItem {
                     Image(systemName: "pencil.and.ellipsis.rectangle")
                     Text("Datos")
+                    
                 }
+            
             CardEditorView()
                 .tabItem {
                     Image(systemName: "creditcard")
                     Text("Tarjeta")
+                    
                 }
-//            if  !userData.nombre.isEmpty && !userData.apellidos.isEmpty &&
-//                !userData.puestoTrabajo.isEmpty && !userData.telefono.isEmpty &&
-//                !userData.email.isEmpty {
-//
-//            }
             
         }.onAppear() {
             UITabBar.appearance().unselectedItemTintColor = .gray
             UITabBar.appearance().backgroundColor = .white
+            
         }
     }
 }
@@ -49,5 +48,6 @@ struct NavigatorView_Previws: PreviewProvider {
         NavigatorView()
             .previewInterfaceOrientation(.portrait)
             .environmentObject(UserData())
+        
     }
 }

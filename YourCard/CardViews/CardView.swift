@@ -16,8 +16,10 @@ struct CardView: View {
         animation: .default)
     private var items: FetchedResults<Item>
     
-    //Variable de datos de entorno
+    // Variable de datos de entorno
     @EnvironmentObject var userData: UserData
+    
+    //  Propiedades del objeto
     var finalColor: Color = Color.blue
     var foreColorSelect: Color = Color.black
     var logoColorSelect: Color = Color.white
@@ -27,6 +29,7 @@ struct CardView: View {
     var body: some View {
         ZStack {
             VStack{
+                // Control sobre la horientación de la tarjeta
                 if !cardReversed {
                     HStack{
                         Section{
@@ -34,37 +37,40 @@ struct CardView: View {
                                 .font(.largeTitle)
                                 .bold()
                                 .frame(width: 80, height: 80, alignment: .center)
+                        
                         }
                         .background(logoColorSelect).opacity(aluminio ? 0.6 : 1)
                         .clipShape(Circle())
                             
+                        // Añade los texto a la tarjeta en el frente
                         VStack{
                             Text("\(userData.nombre == "" ? "Nombre" : userData.nombre) \(userData.apellidos == "" ? "Apellido" : userData.apellidos)")
                             Text("\(userData.puestoTrabajo == "" ? "Puesto de trabajo" : userData.puestoTrabajo)")
+                        
                         }
                         
                     }
                     
                 } else {
+                    // Añade los texto a la tarjeta en la trasera
                     Section{
-                        Text("\(Image(systemName: "phone.circle")) \(userData.telefono == "" ? "000000000" : userData.telefono)")
+                        Text("\(Image(systemName: "phone.circle")) \((userData.telefono ?? 000000000))")
                         Text("\(Image(systemName: "envelope.circle")) \(userData.email == "" ? "email@dominio.com" : userData.email)")
                         Text("\(Image(systemName: "house")) \(userData.direccion == "" ? "Dirección" : userData.direccion)")
                         if !userData.direccion2.elementsEqual("") {
                             Text("\(Image(systemName: "house")) \(userData.direccion2)")
                         }
-                    }
-                    .rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
+                    }.rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
                     
-                  
                 }
+                
             }.background(aluminio ? Image("aluminio") : nil)
                 .opacity(aluminio ? 0.6 : 1)
                 .font(.title2)
                 .foregroundColor(foreColorSelect)
             
             
-        }.frame(width: 280, height: 190, alignment: .center)
+        }.frame(width: 310, height: 200, alignment: .center)
         .cornerRadius(25)
         .background(finalColor)
         .clipShape(RoundedRectangle(cornerRadius: 25.0, style: .continuous))
@@ -73,14 +79,6 @@ struct CardView: View {
         .shadow(color: finalColor, radius: 5, x: -3, y: -3)
         .onTapGesture {
             self.cardReversed.toggle()
-        }.animation(.easeInOut, value: self.cardReversed)
+        }.animation(.interpolatingSpring(stiffness: 40, damping: 6), value: self.cardReversed)
     }
 }
-
-//struct CardView_Previws: PreviewProvider {
-//    static var previews: some View {
-//        CardView()
-//            .previewInterfaceOrientation(.portrait)
-//            .environmentObject(UserData())
-//    }
-//}
