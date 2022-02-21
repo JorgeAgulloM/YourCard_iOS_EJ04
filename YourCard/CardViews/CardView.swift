@@ -23,7 +23,7 @@ struct CardView: View {
     var finalColor: Color = Color.blue
     var foreColorSelect: Color = Color.black
     var logoColorSelect: Color = Color.white
-    var aluminio: Bool = true
+    var aluminum: Bool = true
     @Binding var cardReversed: Bool
 
     var body: some View {
@@ -33,19 +33,19 @@ struct CardView: View {
                 if !cardReversed {
                     HStack{
                         Section{
-                            Text("\(String(userData.nombre == "" ? "?" : userData.nombre.prefix(1)))")
+                            Text("\(String(userData.name == "" ? "?" : userData.name.prefix(1)))")
                                 .font(.largeTitle)
                                 .bold()
                                 .frame(width: 80, height: 80, alignment: .center)
                         
                         }
-                        .background(logoColorSelect).opacity(aluminio ? 0.6 : 1)
+                        .background(logoColorSelect).opacity(aluminum ? 0.6 : 1)
                         .clipShape(Circle())
                             
                         // Añade los texto a la tarjeta en el frente
                         VStack{
-                            Text("\(userData.nombre == "" ? "Nombre" : userData.nombre) \(userData.apellidos == "" ? "Apellido" : userData.apellidos)")
-                            Text("\(userData.puestoTrabajo == "" ? "Puesto de trabajo" : userData.puestoTrabajo)")
+                            Text("\(userData.name == "" ? "Nombre" : userData.name) \(userData.surname == "" ? "Apellido" : userData.surname)")
+                            Text("\(userData.job == "" ? "Puesto de trabajo" : userData.job)")
                         
                         }
                         
@@ -54,18 +54,18 @@ struct CardView: View {
                 } else {
                     // Añade los texto a la tarjeta en la trasera
                     Section{
-                        Text("\(Image(systemName: "phone.circle")) \((userData.telefono ?? 000000000))")
+                        Text("\(Image(systemName: "phone.circle")) \((userData.phoneNumber ?? 000000000))")
                         Text("\(Image(systemName: "envelope.circle")) \(userData.email == "" ? "email@dominio.com" : userData.email)")
-                        Text("\(Image(systemName: "house")) \(userData.direccion == "" ? "Dirección" : userData.direccion)")
-                        if !userData.direccion2.elementsEqual("") {
-                            Text("\(Image(systemName: "house")) \(userData.direccion2)")
+                        Text("\(Image(systemName: "house")) \(userData.address == "" ? "Dirección" : userData.address)")
+                        if !userData.address2.elementsEqual("") {
+                            Text("\(Image(systemName: "house")) \(userData.address2)")
                         }
                     }.rotation3DEffect(.degrees(180), axis: (x: 0, y: 1, z: 0))
                     
                 }
                 
-            }.background(aluminio ? Image("aluminio") : nil)
-                .opacity(aluminio ? 0.6 : 1)
+            }.background(aluminum ? Image("aluminio") : nil)
+                .opacity(aluminum ? 0.6 : 1)
                 .font(.title2)
                 .foregroundColor(foreColorSelect)
             

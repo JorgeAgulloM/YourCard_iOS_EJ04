@@ -10,13 +10,13 @@ import CoreData
 
 //  Clase observable para compartir datos en entorno
 class UserData: ObservableObject {
-    @Published var nombre: String = ""
-    @Published var apellidos: String = ""
-    @Published var puestoTrabajo: String = ""
-    @Published var telefono: Int?
+    @Published var name: String = ""
+    @Published var surname: String = ""
+    @Published var job: String = ""
+    @Published var phoneNumber: Int?
     @Published var email: String = ""
-    @Published var direccion: String = ""
-    @Published var direccion2: String = ""
+    @Published var address: String = ""
+    @Published var address2: String = ""
     @Published var dataComplete: Bool = false
     
 }
@@ -100,11 +100,11 @@ struct FormView: View {
                 .italic()
                 .foregroundColor(Color.blue)
             
-            TextField("\(Image(systemName: "person.crop.circle")) Nombre", text: $userData.nombre)
+            TextField("\(Image(systemName: "person.crop.circle")) Nombre", text: $userData.name)
                 .autocapitalization(.words)
-            TextField("\(Image(systemName: "person.crop.circle")) Apellido", text: $userData.apellidos)
+            TextField("\(Image(systemName: "person.crop.circle")) Apellido", text: $userData.surname)
                 .autocapitalization(.words)
-            TextField("\(Image(systemName: "briefcase")) Puesto de trabajo", text: $userData.puestoTrabajo)
+            TextField("\(Image(systemName: "briefcase")) Puesto de trabajo", text: $userData.job)
                 .autocapitalization(.words)
             
             Section{
@@ -112,16 +112,16 @@ struct FormView: View {
                     .font(.title2)
                     .italic()
                     .foregroundColor(Color.blue)
-                TextField("\(Image(systemName: "phone.circle")) Teléfono", value: $userData.telefono, formatter: NumberFormatter())
+                TextField("\(Image(systemName: "phone.circle")) Teléfono", value: $userData.phoneNumber, formatter: NumberFormatter())
                     .keyboardType(.numberPad)
                 TextField("\(Image(systemName: "envelope.circle")) e-Mail", text: $userData.email)
                     .textInputAutocapitalization(.never) //Evita que la primera letra sea mayúscula
                     .keyboardType(.emailAddress)
                     .background((userData.email.count > 0 && !textFieldValidatorEmail(userData.email)) ? LinearGradient(gradient: Gradient(colors: [Color.red, Color.white]), startPoint: .topLeading, endPoint: .bottomTrailing) : LinearGradient(gradient: Gradient(colors: [Color.clear, Color.clear]), startPoint: .topLeading, endPoint: .bottomTrailing))
                     .cornerRadius(20)
-                TextField("\(Image(systemName: "house")) Dirección", text: $userData.direccion)
+                TextField("\(Image(systemName: "house")) Dirección", text: $userData.address)
                     .autocapitalization(.words)
-                TextField("\(Image(systemName: "house")) Dirección2", text: $userData.direccion2)
+                TextField("\(Image(systemName: "house")) Dirección2", text: $userData.address2)
                     .autocapitalization(.words)
                 
             }

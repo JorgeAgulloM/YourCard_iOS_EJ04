@@ -28,7 +28,7 @@ struct CardEditorView: View {
     @State var colorPresed: Int = 2
     @State var cardReversed: Bool = false
     @State var cardSelect: Bool = false
-    @State var aluminio: Bool = true
+    @State var aluminum: Bool = true
     @State var sendCard: Bool = false
     @State var sendBy: Bool = false
 
@@ -39,7 +39,7 @@ struct CardEditorView: View {
                 CardView(finalColor: finalColor,
                          foreColorSelect: foreColorSelect,
                          logoColorSelect: logoColorSelect,
-                         aluminio: aluminio,
+                         aluminum: aluminum,
                          cardReversed: $cardReversed)
                     
                 Text("Selecciona tu color")
@@ -63,7 +63,7 @@ struct CardEditorView: View {
                 .frame(width: 320, height: 100, alignment: .leading)
                 .accessibilityHidden(personalColor)
                 
-                UserOptions(aluminio: $aluminio,
+                UserOptions(aluminio: $aluminum,
                             finalColor: $finalColor,
                             logoColorSelect: $logoColorSelect,
                             foreColorSelect: $foreColorSelect)
