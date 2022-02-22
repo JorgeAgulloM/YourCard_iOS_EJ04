@@ -54,7 +54,7 @@ struct CardView: View {
                 } else {
                     // Añade los texto a la tarjeta en la trasera
                     Section{
-                        Text("\(Image(systemName: "phone.circle")) \((userData.phoneNumber ?? 000000000))")
+                        Text("\(Image(systemName: "phone.circle")) \((userData.phoneNumber == "" ? "000000000" : userData.phoneNumber))")
                         Text("\(Image(systemName: "envelope.circle")) \(userData.email == "" ? "email@dominio.com" : userData.email)")
                         Text("\(Image(systemName: "house")) \(userData.address == "" ? "Dirección" : userData.address)")
                         if !userData.address2.elementsEqual("") {
@@ -70,7 +70,7 @@ struct CardView: View {
                 .foregroundColor(foreColorSelect)
             
             
-        }.frame(width: 310, height: 200, alignment: .center)
+        }.frame(width: 290, height: 200, alignment: .center)
         .cornerRadius(25)
         .background(finalColor)
         .clipShape(RoundedRectangle(cornerRadius: 25.0, style: .continuous))

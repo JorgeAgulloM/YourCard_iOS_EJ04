@@ -111,7 +111,8 @@ struct UserOptions: View {
     var body: some View {
         Toggle(isOn: $aluminio) {
             Text("¿Plástico o Aluminio?")
-            }.padding()
+        }.padding(.top, 30)
+            .padding(.horizontal, 10)
             .frame(width: 300, height: 30, alignment: .center)
             .foregroundColor(Color.black)
         
